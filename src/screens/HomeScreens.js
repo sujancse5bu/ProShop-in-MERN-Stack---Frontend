@@ -11,6 +11,8 @@ const HomeScreens = () => {
   const productList = useSelector((state) => state.productList)
   const { error, products } = productList
 
+  const { loading } = useSelector((state) => state.loader)
+
   useEffect(() => {
     dispatch(listProducts())
   }, [dispatch])
@@ -23,13 +25,15 @@ const HomeScreens = () => {
           <Message variant='danger'>{error}</Message>
         </h3>
       ) : (
-        <Row>
-          {products.map((product) => (
-            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-              <Product product={product} />
-            </Col>
-          ))}
-        </Row>
+        !loading && (
+          <Row>
+            {products.map((product) => (
+              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                <Product product={product} />
+              </Col>
+            ))}
+          </Row>
+        )
       )}
     </>
   )

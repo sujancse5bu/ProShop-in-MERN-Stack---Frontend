@@ -41,15 +41,14 @@ export const login = (email, password) => async (dispatch) => {
       { email, password },
       config
     )
-    dispatch({ type: LOADING_FALSE })
+
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,
     })
-
+    dispatch({ type: LOADING_FALSE })
     localStorage.setItem('userInfo', JSON.stringify(data))
   } catch (error) {
-    dispatch({ type: LOADING_FALSE })
     dispatch({
       type: USER_LOGIN_FAIL,
       payload:
@@ -57,6 +56,7 @@ export const login = (email, password) => async (dispatch) => {
           ? error.response.data.message
           : error.message,
     })
+    dispatch({ type: LOADING_FALSE })
   }
 }
 
@@ -86,7 +86,7 @@ export const register = (name, email, password) => async (dispatch) => {
       { name, email, password },
       config
     )
-    dispatch({ type: LOADING_FALSE })
+
     dispatch({
       type: USER_REGISTER_SUCCESS,
       payload: data,
@@ -96,10 +96,9 @@ export const register = (name, email, password) => async (dispatch) => {
       type: USER_LOGIN_SUCCESS,
       payload: data,
     })
-
+    dispatch({ type: LOADING_FALSE })
     localStorage.setItem('userInfo', JSON.stringify(data))
   } catch (error) {
-    dispatch({ type: LOADING_FALSE })
     dispatch({
       type: USER_REGISTER_FAIL,
       payload:
@@ -107,6 +106,7 @@ export const register = (name, email, password) => async (dispatch) => {
           ? error.response.data.message
           : error.message,
     })
+    dispatch({ type: LOADING_FALSE })
   }
 }
 
@@ -128,13 +128,13 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.get(`/api/users/${id}`, config)
-    dispatch({ type: LOADING_FALSE })
+
     dispatch({
       type: USER_DETAILS_SUCCESS,
       payload: data,
     })
-  } catch (error) {
     dispatch({ type: LOADING_FALSE })
+  } catch (error) {
     dispatch({
       type: USER_DETAILS_FAIL,
       payload:
@@ -142,6 +142,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
           ? error.response.data.message
           : error.message,
     })
+    dispatch({ type: LOADING_FALSE })
   }
 }
 
@@ -163,13 +164,13 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.put(`/api/users/profile`, user, config)
-    dispatch({ type: LOADING_FALSE })
+
     dispatch({
       type: USER_UPDATE_PROFILE_SUCCESS,
       payload: data,
     })
-  } catch (error) {
     dispatch({ type: LOADING_FALSE })
+  } catch (error) {
     dispatch({
       type: USER_UPDATE_PROFILE_FAIL,
       payload:
@@ -177,6 +178,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
           ? error.response.data.message
           : error.message,
     })
+    dispatch({ type: LOADING_FALSE })
   }
 }
 

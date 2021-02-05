@@ -30,13 +30,13 @@ export const createOrder = (order) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.post(`/api/orders`, order, config)
-    dispatch({ type: LOADING_FALSE })
+
     dispatch({
       type: ORDER_CREATE_SUCCESS,
       payload: data,
     })
-  } catch (error) {
     dispatch({ type: LOADING_FALSE })
+  } catch (error) {
     dispatch({
       type: ORDER_CREATE_FAIL,
       payload:
@@ -44,6 +44,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
           ? error.response.data.message
           : error.message,
     })
+    dispatch({ type: LOADING_FALSE })
   }
 }
 
@@ -65,13 +66,12 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
 
     const { data } = await axios.get(`/api/orders/${id}`, config)
 
-    dispatch({ type: LOADING_FALSE })
     dispatch({
       type: ORDER_DETAILS_SUCCESS,
       payload: data,
     })
-  } catch (error) {
     dispatch({ type: LOADING_FALSE })
+  } catch (error) {
     dispatch({
       type: ORDER_DETAILS_FAIL,
       payload:
@@ -79,6 +79,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
           ? error.response.data.message
           : error.message,
     })
+    dispatch({ type: LOADING_FALSE })
   }
 }
 
@@ -111,13 +112,12 @@ export const payOrder = (orderId, paymentResult) => async (
       config
     )
 
-    dispatch({ type: LOADING_FALSE })
     dispatch({
       type: ORDER_PAY_SUCCESS,
       payload: data,
     })
-  } catch (error) {
     dispatch({ type: LOADING_FALSE })
+  } catch (error) {
     dispatch({
       type: ORDER_PAY_FAIL,
       payload:
@@ -125,6 +125,7 @@ export const payOrder = (orderId, paymentResult) => async (
           ? error.response.data.message
           : error.message,
     })
+    dispatch({ type: LOADING_FALSE })
   }
 }
 
@@ -146,13 +147,12 @@ export const listMyOrders = () => async (dispatch, getState) => {
 
     const { data } = await axios.get(`/api/orders/myorders`, config)
 
-    dispatch({ type: LOADING_FALSE })
     dispatch({
       type: ORDER_LIST_MY_SUCCESS,
       payload: data,
     })
-  } catch (error) {
     dispatch({ type: LOADING_FALSE })
+  } catch (error) {
     dispatch({
       type: ORDER_LIST_MY_FAIL,
       payload:
@@ -160,5 +160,6 @@ export const listMyOrders = () => async (dispatch, getState) => {
           ? error.response.data.message
           : error.message,
     })
+    dispatch({ type: LOADING_FALSE })
   }
 }
