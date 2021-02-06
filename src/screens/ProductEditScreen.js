@@ -33,6 +33,7 @@ const ProductEditScreen = ({ match, history }) => {
 
   useEffect(() => {
     if (successUpdate) {
+      // console.log(productUpdate)
       dispatch({ type: PRODUCT_UPDATE_RESET })
       history.push('/admin/product-list')
     } else {
@@ -48,10 +49,11 @@ const ProductEditScreen = ({ match, history }) => {
         setDescription(product.description)
       }
     }
-  }, [dispatch, productId, history, product, successUpdate])
+  }, [dispatch, productId, history, product, successUpdate, productUpdate])
 
   const submitHandler = (e) => {
     e.preventDefault()
+    console.log(image)
     dispatch(
       updateProduct({
         _id: productId,
@@ -66,7 +68,7 @@ const ProductEditScreen = ({ match, history }) => {
     )
   }
 
-  const uploadFileHandler = async () => {
+  const uploadFileHandler = async (e) => {
     const file = e.target.files[0]
     const formData = new FormData()
     formData.append('image', file)
@@ -79,7 +81,13 @@ const ProductEditScreen = ({ match, history }) => {
         },
       }
       const { data } = await axios.post('/api/upload', formData, config)
-    } catch (error) {}
+      // console.log(data)
+      setImage(data)
+      setUploading(false)
+    } catch (error) {
+      console.error(error)
+      setUploading(false)
+    }
   }
   return (
     <>
