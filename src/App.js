@@ -36,9 +36,25 @@ function App() {
           <Route path='/cart/:id?' component={CartScreen} />
           <Route path='/admin/user-list' component={UserListScreen} />
           <Route path='/admin/user/:id/edit' component={UserEditScreen} />
-          <Route path='/admin/product-list' component={ProductListScreen} />
+          <Route
+            path='/admin/product-list'
+            component={ProductListScreen}
+            exact
+          />
+          <Route
+            path='/admin/product-list/:page'
+            component={ProductListScreen}
+            exact
+          />
           <Route path='/admin/product/:id/edit' component={ProductEditScreen} />
           <Route path='/admin/order-list' component={OrderListScreen} />
+          <Route path='/search/:keyword' component={HomeScreens} exact />
+          <Route path='/page/:page' component={HomeScreens} exact />
+          <Route
+            path='/search/:keyword/page/:page'
+            component={HomeScreens}
+            exact
+          />
           <Route path='/' component={HomeScreens} exact />
         </Container>
       </main>
